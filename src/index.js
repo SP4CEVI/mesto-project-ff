@@ -16,7 +16,7 @@ const profileDescription = document.querySelector(".profile__description");
 
 const popupAddCard = document.querySelector(".popup_type_new-card");
 
-function openImagePopup(element) {
+const openImagePopup = (element) => {
   const popupImage = document.querySelector(".popup_type_image");
   const imageContent = popupImage.querySelector(".popup__image");
   const imageCaption = popupImage.querySelector(".popup__caption");
@@ -28,7 +28,7 @@ function openImagePopup(element) {
   openPopup(popupImage);
 };
 
-function addTemplates(cards) {
+const addTemplates = (cards) => {
   cards.forEach((element) => {
     const templates = createCard(element, openImagePopup);
     placesList.append(templates);
@@ -37,7 +37,7 @@ function addTemplates(cards) {
 
 addTemplates(initialCards);
 
-function handleFormSubmit(evt) {
+const handleFormSubmit = (evt) => {
   evt.preventDefault();
 
   const popupElement = evt.target.closest(".popup");
