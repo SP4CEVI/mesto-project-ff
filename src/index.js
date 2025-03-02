@@ -37,7 +37,7 @@ const addTemplates = (cards) => {
 
 addTemplates(initialCards);
 
-const handleFormSubmit = (evt) => {
+const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
 
   const popupElement = evt.target.closest(".popup");
@@ -50,13 +50,11 @@ const handleFormSubmit = (evt) => {
   closePopup(popupElement);
 }
 
-popupFormEditProfile.addEventListener("submit", handleFormSubmit);
+popupFormEditProfile.addEventListener("submit", handleProfileFormSubmit);
 
 saveProfileChanges.addEventListener("click", () => openPopup(popupAddCard));
 
 editProfileButton.addEventListener("click", () => {
-  openPopup(popupEditProfile, profileTitle, profileDescription, inputName, inputDescription);
-
   inputName.value = profileTitle.textContent;
   inputDescription.value = profileDescription.textContent;
   
@@ -67,7 +65,7 @@ const formNewCard = popupAddCard.querySelector(".popup__form");
 const nameNewCard = formNewCard.querySelector(".popup__input_type_card-name");
 const linkNewCard = formNewCard.querySelector(".popup__input_type_url");
 
-const newCardForm = (evt) => {
+const addNewCardForm = (evt) => {
     evt.preventDefault();
 
     const newCard = {
@@ -81,4 +79,4 @@ const newCardForm = (evt) => {
     closePopup(popupAddCard);
 }
 
-formNewCard.addEventListener("submit", newCardForm)
+formNewCard.addEventListener("submit", addNewCardForm)
