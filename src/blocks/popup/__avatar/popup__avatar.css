@@ -1,0 +1,10 @@
+.popup__content.popup__content-avatar {
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 10px;
+    max-width: 430px;
+    width: 100%;
+    min-height: 272px;
+    background-color: white;
+    padding: 34px 36px;
+  }
