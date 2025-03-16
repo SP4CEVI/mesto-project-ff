@@ -18,10 +18,7 @@ export const getProfileInfo = () => {
     method: "GET",
     headers: config.headers,
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 };
 
 export const editProfileInfo = (name, about) => {
@@ -33,10 +30,7 @@ export const editProfileInfo = (name, about) => {
       about: about,
     }),
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 };
 
 export const getCards = () => {
@@ -44,10 +38,7 @@ export const getCards = () => {
     method: "GET",
     headers: config.headers,
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 };
 
 export const addNewCard = (name, link) => {
@@ -59,10 +50,7 @@ export const addNewCard = (name, link) => {
       link: link,
     }),
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 };
 
 export const deleteCard = (id) => {
@@ -70,10 +58,7 @@ export const deleteCard = (id) => {
     method: "DELETE",
     headers: config.headers,
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 };
 
 export const addLike = (cardId) => {
@@ -81,10 +66,7 @@ export const addLike = (cardId) => {
     method: "PUT",
     headers: config.headers,
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 };
 
 export const deleteLike = (cardId) => {
@@ -92,10 +74,7 @@ export const deleteLike = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 };
 
 export const updateProfileAvatar = (avatarLink) => {
@@ -106,8 +85,5 @@ export const updateProfileAvatar = (avatarLink) => {
       avatar: avatarLink,
     }),
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 };
