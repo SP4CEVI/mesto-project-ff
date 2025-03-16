@@ -1,14 +1,14 @@
 import "./pages/index.css";
 import { createCard } from "./components/card.js";
 import { openPopup, closePopup } from "./components/modalWindow.js";
-import { enableFormValidation, clearValidation } from "./components/validation.js";
+import { enableValidation, clearValidation } from "./components/validation.js";
 import { getProfileInfo, getCards, editProfileInfo, addNewCard, updateProfileAvatar } from "./components/api.js";
 
 const popups = document.querySelectorAll('.popup');
 
 const placesList = document.querySelector(".places__list");
 const editProfileButton = document.querySelector(".profile__edit-button");
-const saveProfileChanges = document.querySelector(".profile__add-button");
+const buttonSaveProfileChanges = document.querySelector(".profile__add-button");
 
 const popupEditProfile = document.querySelector(".popup_type_edit");
 const popupFormEditProfile = popupEditProfile.querySelector(".popup__form");
@@ -26,7 +26,9 @@ const popupEditAvatar = document.querySelector(".popup_type_edit-avatar");
 const formEditAvatar = popupEditAvatar.querySelector(".popup__form");
 const inputAvatarLink = formEditAvatar.querySelector("#input_avatar-link");
 
-const enableValidation = {
+const profileImage = document.querySelector(".profile__image");
+
+const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -46,7 +48,7 @@ popups.forEach((popup) => {
   });
 });
 
-enableFormValidation(enableValidation);
+enableValidation(validationConfig);
 
 Promise.all([getProfileInfo(), getCards()])
   .then(([profile, cards]) => {
@@ -64,17 +66,23 @@ Promise.all([getProfileInfo(), getCards()])
     console.log("Ошибка в Promise.all", err);
   });
 
-const openImagePopup = (element) => {
   const popupImage = document.querySelector(".popup_type_image");
   const imageContent = popupImage.querySelector(".popup__image");
   const imageCaption = popupImage.querySelector(".popup__caption");
 
+const openImagePopup = (element) => {
   imageContent.src = element.link;
   imageContent.alt = element.link;
   imageCaption.textContent = element.name;
 
   openPopup(popupImage);
 }
+/*
+const handleButtonState = (button, isLoading) {
+  const buttonText = button.textContent;
+  button.textContent = isLoading ? "Сохранение..." : buttonText;
+  return buttonText;
+}*/
 
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
@@ -97,18 +105,16 @@ const handleProfileFormSubmit = (evt) => {
     .finally(() => {
       button.textContent = buttonText;
     });
-}
+};
 
 popupFormEditProfile.addEventListener("submit", handleProfileFormSubmit);
-saveProfileChanges.addEventListener("click", () => openPopup(popupAddCard));
+buttonSaveProfileChanges.addEventListener("click", () => openPopup(popupAddCard));
 
 editProfileButton.addEventListener("click", () => {
-  openPopup(popupEditProfile, profileTitle, profileDescription, inputName, inputDescription);
-
   inputName.value = profileTitle.textContent;
   inputDescription.value = profileDescription.textContent;
 
-  clearValidation(popupFormEditProfile, enableValidation);
+  clearValidation(popupFormEditProfile, validationConfig);
 
   openPopup(popupEditProfile);
 });
@@ -126,7 +132,6 @@ formEditAvatar.addEventListener("submit", (evt) => {
 
   updateProfileAvatar(avatarLink)
     .then((data) => {
-      const profileImage = document.querySelector(".profile__image");
       profileImage.style.backgroundImage = `url(${data.avatar})`;
 
       closePopup(popupEditAvatar);
@@ -146,7 +151,7 @@ const linkImageNewCard = formNewCard.querySelector(".popup__input_type_url");
 const addNewCardForm = (evt) => {
   evt.preventDefault();
 
-  const button = popupFormEditProfile.querySelector(".popup__button");
+  const button = formNewCard.querySelector(".popup__button");
   const buttonText = button.textContent;
 
   button.textContent = "Сохранение...";
@@ -157,7 +162,6 @@ const addNewCardForm = (evt) => {
       placesList.prepend(element);
 
       formNewCard.reset();
-      clearValidation(formNewCard, enableValidation);
       closePopup(popupAddCard);
     })
     .catch((err) => {
