@@ -2,7 +2,7 @@ export const openPopup = (popupElement) => {
   popupElement.classList.add("popup_is-opened");
 
   document.addEventListener('keydown', handlekeyEscape);
-  }
+}
 
 export const closePopup = (popupElement) => {
   popupElement.classList.remove("popup_is-opened");
