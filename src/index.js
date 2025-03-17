@@ -28,7 +28,7 @@ const inputAvatarLink = formEditAvatar.querySelector("#input_avatar-link");
 
 const profileImage = document.querySelector(".profile__image");
 
-const validationConfig = {
+export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -77,12 +77,6 @@ const openImagePopup = (element) => {
 
   openPopup(popupImage);
 }
-/*
-const handleButtonState = (button, isLoading) {
-  const buttonText = button.textContent;
-  button.textContent = isLoading ? "Сохранение..." : buttonText;
-  return buttonText;
-}*/
 
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
@@ -148,6 +142,13 @@ const formNewCard = popupAddCard.querySelector(".popup__form");
 const nameNewCard = formNewCard.querySelector(".popup__input_type_card-name");
 const linkImageNewCard = formNewCard.querySelector(".popup__input_type_url");
 
+const toggleButtonState = (popupElement, config) => {
+  const formElement = popupElement.querySelector(".popup__form");
+  const button = formElement.querySelector(config.submitButtonSelector);
+  button.disabled = true;
+  button.classList.add(config.inactiveButtonClass);
+}
+
 const addNewCardForm = (evt) => {
   evt.preventDefault();
 
@@ -169,6 +170,7 @@ const addNewCardForm = (evt) => {
     })
     .finally(() => {
       button.textContent = buttonText;
+      toggleButtonState(popupAddCard, validationConfig);
     });
 }
 
