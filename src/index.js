@@ -1,7 +1,7 @@
 import "./pages/index.css";
 import { createCard } from "./components/card.js";
 import { openPopup, closePopup } from "./components/modalWindow.js";
-import { enableValidation, clearValidation } from "./components/validation.js";
+import { updateButtonStatus, enableValidation, clearValidation } from "./components/validation.js";
 import { getProfileInfo, getCards, editProfileInfo, addNewCard, updateProfileAvatar } from "./components/api.js";
 
 const popups = document.querySelectorAll('.popup');
@@ -142,13 +142,6 @@ const formNewCard = popupAddCard.querySelector(".popup__form");
 const nameNewCard = formNewCard.querySelector(".popup__input_type_card-name");
 const linkImageNewCard = formNewCard.querySelector(".popup__input_type_url");
 
-const toggleButtonState = (popupElement, config) => {
-  const formElement = popupElement.querySelector(".popup__form");
-  const button = formElement.querySelector(config.submitButtonSelector);
-  button.disabled = true;
-  button.classList.add(config.inactiveButtonClass);
-}
-
 const addNewCardForm = (evt) => {
   evt.preventDefault();
 
@@ -170,7 +163,8 @@ const addNewCardForm = (evt) => {
     })
     .finally(() => {
       button.textContent = buttonText;
-      toggleButtonState(popupAddCard, validationConfig);
+      const inputList = Array.from(formNewCard.querySelectorAll("input"));
+      updateButtonStatus(inputList, button, validationConfig);
     });
 }
 
