@@ -75,7 +75,7 @@ const openImagePopup = (element) => {
   imageContent.alt = element.link;
   imageCaption.textContent = element.name;
 
-  openPopup(popupImage);
+  openPopup(popupImage, validationConfig);
 }
 
 const handleProfileFormSubmit = (evt) => {
@@ -102,7 +102,7 @@ const handleProfileFormSubmit = (evt) => {
 };
 
 popupFormEditProfile.addEventListener("submit", handleProfileFormSubmit);
-buttonSaveProfileChanges.addEventListener("click", () => openPopup(popupAddCard));
+buttonSaveProfileChanges.addEventListener("click", () => openPopup(popupAddCard, validationConfig));
 
 editProfileButton.addEventListener("click", () => {
   inputName.value = profileTitle.textContent;
@@ -110,10 +110,10 @@ editProfileButton.addEventListener("click", () => {
 
   clearValidation(popupFormEditProfile, validationConfig);
 
-  openPopup(popupEditProfile);
+  openPopup(popupEditProfile, validationConfig);
 });
 
-profileAvatar.addEventListener("click", () => openPopup(popupEditAvatar));
+profileAvatar.addEventListener("click", () => openPopup(popupEditAvatar, validationConfig));
 
 formEditAvatar.addEventListener("submit", (evt) => {
   evt.preventDefault();
@@ -163,8 +163,6 @@ const addNewCardForm = (evt) => {
     })
     .finally(() => {
       button.textContent = buttonText;
-      const inputList = Array.from(formNewCard.querySelectorAll("input"));
-      updateButtonStatus(inputList, button, validationConfig);
     });
 }
 
