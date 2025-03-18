@@ -75,7 +75,7 @@ const openImagePopup = (element) => {
   imageContent.alt = element.link;
   imageCaption.textContent = element.name;
 
-  openPopup(popupImage, validationConfig);
+  openPopup(popupImage);
 }
 
 const handleProfileFormSubmit = (evt) => {
@@ -102,7 +102,12 @@ const handleProfileFormSubmit = (evt) => {
 };
 
 popupFormEditProfile.addEventListener("submit", handleProfileFormSubmit);
-buttonSaveProfileChanges.addEventListener("click", () => openPopup(popupAddCard, validationConfig));
+buttonSaveProfileChanges.addEventListener("click", () => {
+  openPopup(popupAddCard);
+  const inputList = Array.from(popupAddCard.querySelectorAll("input"));
+  const button = popupAddCard.querySelector(".popup__button");
+  updateButtonStatus(inputList, button, validationConfig);
+});
 
 editProfileButton.addEventListener("click", () => {
   inputName.value = profileTitle.textContent;
@@ -110,10 +115,10 @@ editProfileButton.addEventListener("click", () => {
 
   clearValidation(popupFormEditProfile, validationConfig);
 
-  openPopup(popupEditProfile, validationConfig);
+  openPopup(popupEditProfile);
 });
 
-profileAvatar.addEventListener("click", () => openPopup(popupEditAvatar, validationConfig));
+profileAvatar.addEventListener("click", () => openPopup(popupEditAvatar));
 
 formEditAvatar.addEventListener("submit", (evt) => {
   evt.preventDefault();
@@ -157,6 +162,7 @@ const addNewCardForm = (evt) => {
 
       formNewCard.reset();
       closePopup(popupAddCard);
+      updateButtonStatus(inputList, button, validationConfig);
     })
     .catch((err) => {
       console.log("Ошибка добавления карточки:", err);
