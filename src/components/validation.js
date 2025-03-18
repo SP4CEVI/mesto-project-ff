@@ -33,7 +33,7 @@ const invalidInput = (inputList) => {
   return inputList.some((inputField) => !inputField.validity.valid);
 };
 
-const updateButtonStatus = (inputList, button, config) => {
+export const updateButtonStatus = (inputList, button, config) => {
   if (invalidInput(inputList)) {
     button.disabled = true;
     button.classList.add(config.inactiveButtonClass);
