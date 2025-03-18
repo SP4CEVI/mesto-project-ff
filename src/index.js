@@ -162,7 +162,6 @@ const addNewCardForm = (evt) => {
 
       formNewCard.reset();
       closePopup(popupAddCard);
-      updateButtonStatus(inputList, button, validationConfig);
     })
     .catch((err) => {
       console.log("Ошибка добавления карточки:", err);
